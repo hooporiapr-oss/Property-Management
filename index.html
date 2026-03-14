@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VozLine — AI Call Centers for Business</title>
+    <title>LaVozLine — AI Call Centers for Business</title>
     <meta name="description" content="Your AI call center with a 787 number. Bilingual agents that answer 24/7. From $297/month.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -734,7 +734,7 @@
     <!-- Header -->
     <header>
         <div class="header-container">
-            <div class="logo">VozLine</div>
+            <div class="logo">LaVozLine</div>
             <div class="nav-links">
                 <a href="#pricing" data-en="Pricing" data-es="Precios">Pricing</a>
                 <a href="#demo" data-en="Demo" data-es="Demo">Demo</a>
@@ -1025,18 +1025,13 @@
         <div class="footer-container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>VozLine</h4>
+                    <h4>LaVozLine</h4>
                     <p data-en="AI call centers for businesses in Puerto Rico. 787 numbers, bilingual agents, 24/7 coverage." data-es="Call centers de IA para negocios en Puerto Rico. Números 787, agentes bilingües, cobertura 24/7.">AI call centers for businesses in Puerto Rico. 787 numbers, bilingual agents, 24/7 coverage.</p>
-                </div>
-                <div class="footer-col">
-                    <h4 data-en="Products" data-es="Productos">Products</h4>
-                    <a href="https://heybori.com">Hey Bori (Tourism)</a>
-                    <a href="https://lavozpr.com">La Voz PR</a>
                 </div>
                 <div class="footer-col">
                     <h4 data-en="Company" data-es="Compañía">Company</h4>
                     <a href="https://gostardigital.com">GoStar Digital LLC</a>
-                    <p>San Juan, Puerto Rico</p>
+                    <p>San Juan, PR</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1049,11 +1044,11 @@
     <script>
         // Language Toggle
         const langBtns = document.querySelectorAll('.lang-btn');
-        let currentLang = localStorage.getItem('vozline-lang') || 'en';
+        let currentLang = localStorage.getItem('lavozline-lang') || 'en';
 
         function setLanguage(lang) {
             currentLang = lang;
-            localStorage.setItem('vozline-lang', lang);
+            localStorage.setItem('lavozline-lang', lang);
             
             langBtns.forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
