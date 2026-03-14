@@ -1,7 +1,7 @@
 # VozLine Boutique Hotels — Demo Agent Configuration
 
 ## Phone Number
-**(TBD — assign new 787 number)**
+**(787) 663-9401**
 
 ---
 
