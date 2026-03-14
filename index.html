@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VozLine — AI Call Centers for Business</title>
+    <meta name="description" content="Your AI call center with a 787 number. Bilingual agents that answer 24/7. From $297/month.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFD700;
+            --yellow-light: #FFEB3B;
+            --yellow-pale: #FFF9C4;
+            --yellow-dark: #FBC02D;
+            --black: #1a1a1a;
+            --brown: #3E2723;
+            --red: #C62828;
+            --blue: #0D47A1;
+            --white: #FFFFFF;
+            --gray: #757575;
+            --green: #2E7D32;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--yellow);
+            color: var(--black);
+            line-height: 1.5;
+        }
+
+        /* Header */
+        header {
+            background: var(--black);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--yellow);
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: 2px solid var(--yellow);
+            background: transparent;
+            color: var(--yellow);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--black);
+            padding: 3rem 2rem 4rem;
+            text-align: center;
+            border-bottom: 8px solid var(--yellow);
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .sub {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border: 3px solid var(--yellow);
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            background: var(--white);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--yellow);
+        }
+
+        .btn-secondary:hover {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        /* Value Props */
+        .value-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .value-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px double var(--black);
+        }
+
+        .value-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--brown);
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .value-card {
+            background: var(--white);
+            border: 3px solid var(--black);
+            box-shadow: 4px 4px 0 var(--black);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .value-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--brown);
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem 3rem;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px double var(--black);
+        }
+
+        .pricing-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--brown);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 3px solid var(--black);
+            box-shadow: 6px 6px 0 var(--black);
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-width: 4px;
+            box-shadow: 8px 8px 0 var(--black);
+            transform: scale(1.02);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--red);
+            color: var(--white);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card.featured .pricing-badge {
+            background: var(--green);
+        }
+
+        .pricing-card-header {
+            background: var(--black);
+            color: var(--yellow);
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+
+        .pricing-card.featured .pricing-card-header {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .pricing-card-header h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .pricing-card-body {
+            padding: 1.5rem;
+        }
+
+        .pricing-price {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price .amount {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .pricing-price .period {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--gray);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .pricing-cta {
+            text-align: center;
+        }
+
+        .pricing-cta a {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.75rem 1.5rem;
+            background: var(--yellow);
+            color: var(--black);
+            text-decoration: none;
+            border: 2px solid var(--black);
+            transition: all 0.2s;
+        }
+
+        .pricing-cta a:hover {
+            background: var(--black);
+            color: var(--yellow);
+        }
+
+        /* Industries */
+        .industries-section {
+            background: var(--black);
+            padding: 3rem 2rem;
+            border-top: 8px solid var(--yellow);
+            border-bottom: 8px solid var(--yellow);
+        }
+
+        .industries-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .industries-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .industries-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--yellow);
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .industry-item {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--yellow);
+            padding: 1rem;
+        }
+
+        .industry-item .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .industry-item span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--white);
+        }
+
+        /* Demo Section */
+        .demo-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .demo-box {
+            background: var(--white);
+            border: 4px solid var(--black);
+            box-shadow: 8px 8px 0 var(--black);
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .demo-box h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            color: var(--brown);
+        }
+
+        .demo-box p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-phone {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--black);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            border: 3px solid var(--black);
+            background: var(--yellow);
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .demo-phone:hover {
+            background: var(--black);
+            color: var(--yellow);
+        }
+
+        .demo-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gray);
+            margin-top: 0.75rem;
+        }
+
+        /* Demo Grid */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .demo-card {
+            background: var(--white);
+            border: 3px solid var(--black);
+            box-shadow: 5px 5px 0 var(--black);
+            overflow: hidden;
+        }
+
+        .demo-card-header {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .demo-card-header.tourism {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .demo-card-header.realestate {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        .demo-card-header.hospitality {
+            background: #6A1B9A;
+            color: var(--white);
+        }
+
+        .demo-icon {
+            font-size: 1.5rem;
+        }
+
+        .demo-card-header h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .demo-card-body {
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .demo-card-body p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+            min-height: 2.5rem;
+        }
+
+        .demo-number {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--black);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            background: var(--yellow);
+            border: 2px solid var(--black);
+            transition: all 0.2s;
+        }
+
+        .demo-number:hover {
+            background: var(--black);
+            color: var(--yellow);
+        }
+
+        .demo-tag {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 800px) {
+            .demo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* How It Works */
+        .how-section {
+            background: var(--yellow-pale);
+            padding: 3rem 2rem;
+            border-top: 3px solid var(--black);
+            border-bottom: 3px solid var(--black);
+        }
+
+        .how-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .how-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .how-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--brown);
+        }
+
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .how-step {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--black);
+            color: var(--yellow);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .how-step h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--brown);
+        }
+
+        .how-step p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+            border-top: 8px solid var(--yellow);
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--yellow);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .footer-slogan {
+            font-family: 'Oswald', sans-serif;
+            color: var(--yellow);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">VozLine</div>
+            <div class="nav-links">
+                <a href="#pricing" data-en="Pricing" data-es="Precios">Pricing</a>
+                <a href="#demo" data-en="Demo" data-es="Demo">Demo</a>
+                <a href="https://heybori.com" data-en="Hey Bori" data-es="Hey Bori">Hey Bori</a>
+            </div>
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="es">ES</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 data-en="AI Call Centers" data-es="Call Centers de IA">AI Call Centers</h1>
+        <p class="tagline" data-en="Your business. Your 787 number. AI that answers." data-es="Tu negocio. Tu número 787. IA que contesta.">Your business. Your 787 number. AI that answers.</p>
+        <p class="sub" data-en="Bilingual AI agents that answer calls 24/7, know your business, and never miss a customer. From $297/month." data-es="Agentes de IA bilingües que contestan llamadas 24/7, conocen tu negocio, y nunca pierden un cliente. Desde $297/mes.">
+            Bilingual AI agents that answer calls 24/7, know your business, and never miss a customer. From $297/month.
+        </p>
+        <div class="hero-cta">
+            <a href="#demo" class="btn btn-primary" data-en="Hear It Live" data-es="Escúchalo en Vivo">Hear It Live</a>
+            <a href="#pricing" class="btn btn-secondary" data-en="See Pricing" data-es="Ver Precios">See Pricing</a>
+        </div>
+    </section>
+
+    <!-- Value Props -->
+    <section class="value-section">
+        <div class="value-header">
+            <h2 data-en="─── Why VozLine ───" data-es="─── Por Qué VozLine ───">─── Why VozLine ───</h2>
+        </div>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="icon">📞</div>
+                <h3 data-en="787 Numbers" data-es="Números 787">787 Numbers</h3>
+                <p data-en="Local Puerto Rico numbers. Your customers call a number they trust." data-es="Números locales de Puerto Rico. Tus clientes llaman a un número de confianza.">Local Puerto Rico numbers. Your customers call a number they trust.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">🌐</div>
+                <h3 data-en="Bilingual" data-es="Bilingüe">Bilingual</h3>
+                <p data-en="English and Spanish. The agent detects language and responds naturally." data-es="Inglés y español. El agente detecta el idioma y responde naturalmente.">English and Spanish. The agent detects language and responds naturally.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">🕐</div>
+                <h3 data-en="24/7 Coverage" data-es="Cobertura 24/7">24/7 Coverage</h3>
+                <p data-en="Never miss a call. Nights, weekends, holidays — always answered." data-es="Nunca pierdas una llamada. Noches, fines de semana, feriados — siempre contestamos.">Never miss a call. Nights, weekends, holidays — always answered.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="pricing">
+        <div class="pricing-header">
+            <h2 data-en="─── Simple Pricing ───" data-es="─── Precios Simples ───">─── Simple Pricing ───</h2>
+        </div>
+        <div class="pricing-grid">
+            
+            <!-- Starter -->
+            <div class="pricing-card">
+                <div class="pricing-badge" data-en="Starter" data-es="Básico">Starter</div>
+                <div class="pricing-card-header">
+                    <h3>La Línea</h3>
+                </div>
+                <div class="pricing-card-body">
+                    <div class="pricing-price">
+                        <span class="amount">$297</span>
+                        <span class="period" data-en="/month" data-es="/mes">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li data-en="1 AI agent" data-es="1 agente de IA">1 AI agent</li>
+                        <li data-en="1 dedicated 787 number" data-es="1 número 787 dedicado">1 dedicated 787 number</li>
+                        <li data-en="Bilingual (EN/ES)" data-es="Bilingüe (EN/ES)">Bilingual (EN/ES)</li>
+                        <li data-en="24/7 availability" data-es="Disponible 24/7">24/7 availability</li>
+                        <li data-en="500 minutes included" data-es="500 minutos incluidos">500 minutes included</li>
+                    </ul>
+                    <div class="pricing-cta">
+                        <a href="#demo" data-en="Get Started" data-es="Comenzar">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional -->
+            <div class="pricing-card featured">
+                <div class="pricing-badge" data-en="Most Popular" data-es="Más Popular">Most Popular</div>
+                <div class="pricing-card-header">
+                    <h3>La Central</h3>
+                </div>
+                <div class="pricing-card-body">
+                    <div class="pricing-price">
+                        <span class="amount">$597</span>
+                        <span class="period" data-en="/month" data-es="/mes">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li data-en="2 AI agents" data-es="2 agentes de IA">2 AI agents</li>
+                        <li data-en="2 dedicated 787 numbers" data-es="2 números 787 dedicados">2 dedicated 787 numbers</li>
+                        <li data-en="Bilingual (EN/ES)" data-es="Bilingüe (EN/ES)">Bilingual (EN/ES)</li>
+                        <li data-en="24/7 availability" data-es="Disponible 24/7">24/7 availability</li>
+                        <li data-en="1,500 minutes included" data-es="1,500 minutos incluidos">1,500 minutes included</li>
+                        <li data-en="Priority support" data-es="Soporte prioritario">Priority support</li>
+                    </ul>
+                    <div class="pricing-cta">
+                        <a href="#demo" data-en="Get Started" data-es="Comenzar">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="pricing-card">
+                <div class="pricing-badge" data-en="Enterprise" data-es="Empresarial">Enterprise</div>
+                <div class="pricing-card-header">
+                    <h3>La Torre</h3>
+                </div>
+                <div class="pricing-card-body">
+                    <div class="pricing-price">
+                        <span class="amount" data-en="Custom" data-es="Custom">Custom</span>
+                        <span class="period"></span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li data-en="Unlimited agents" data-es="Agentes ilimitados">Unlimited agents</li>
+                        <li data-en="Multiple 787 numbers" data-es="Múltiples números 787">Multiple 787 numbers</li>
+                        <li data-en="Custom integrations" data-es="Integraciones personalizadas">Custom integrations</li>
+                        <li data-en="Dedicated account manager" data-es="Gerente de cuenta dedicado">Dedicated account manager</li>
+                        <li data-en="White-label options" data-es="Opciones de marca blanca">White-label options</li>
+                        <li data-en="SLA guarantee" data-es="Garantía SLA">SLA guarantee</li>
+                    </ul>
+                    <div class="pricing-cta">
+                        <a href="#demo" data-en="Contact Us" data-es="Contáctanos">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Industries -->
+    <section class="industries-section">
+        <div class="industries-container">
+            <div class="industries-header">
+                <h2 data-en="Who We Serve" data-es="A Quién Servimos">Who We Serve</h2>
+            </div>
+            <div class="industries-grid">
+                <div class="industry-item">
+                    <div class="icon">🏨</div>
+                    <span data-en="Hotels" data-es="Hoteles">Hotels</span>
+                </div>
+                <div class="industry-item">
+                    <div class="icon">🍽️</div>
+                    <span data-en="Restaurants" data-es="Restaurantes">Restaurants</span>
+                </div>
+                <div class="industry-item">
+                    <div class="icon">🏥</div>
+                    <span data-en="Medical" data-es="Médicos">Medical</span>
+                </div>
+                <div class="industry-item">
+                    <div class="icon">⚖️</div>
+                    <span data-en="Legal" data-es="Legal">Legal</span>
+                </div>
+                <div class="industry-item">
+                    <div class="icon">🏠</div>
+                    <span data-en="Real Estate" data-es="Bienes Raíces">Real Estate</span>
+                </div>
+                <div class="industry-item">
+                    <div class="icon">🚗</div>
+                    <span data-en="Auto" data-es="Autos">Auto</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section">
+        <div class="how-container">
+            <div class="how-header">
+                <h2 data-en="─── How It Works ───" data-es="─── Cómo Funciona ───">─── How It Works ───</h2>
+            </div>
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="step-number">1</div>
+                    <h3 data-en="Tell Us About Your Business" data-es="Cuéntanos de Tu Negocio">Tell Us About Your Business</h3>
+                    <p data-en="Hours, services, FAQs, how you want calls handled." data-es="Horarios, servicios, preguntas frecuentes, cómo quieres que se manejen las llamadas.">Hours, services, FAQs, how you want calls handled.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">2</div>
+                    <h3 data-en="We Build Your Agent" data-es="Construimos Tu Agente">We Build Your Agent</h3>
+                    <p data-en="Custom AI trained on your business. Your voice, your style." data-es="IA personalizada entrenada en tu negocio. Tu voz, tu estilo.">Custom AI trained on your business. Your voice, your style.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">3</div>
+                    <h3 data-en="Go Live" data-es="Actívalo">Go Live</h3>
+                    <p data-en="Get your 787 number. Start taking calls. That's it." data-es="Recibe tu número 787. Empieza a recibir llamadas. Eso es todo.">Get your 787 number. Start taking calls. That's it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo -->
+    <section class="demo-section" id="demo">
+        <div class="section-header" style="margin-bottom: 2rem;">
+            <h2 data-en="─── Hear It Live ───" data-es="─── Escúchalo en Vivo ───">─── Hear It Live ───</h2>
+            <p style="color: var(--gray); margin-top: 0.5rem;" data-en="Pick an industry. Call the number. That's what your business sounds like." data-es="Escoge una industria. Llama al número. Así suena tu negocio.">Pick an industry. Call the number. That's what your business sounds like.</p>
+        </div>
+
+        <div class="demo-grid">
+            <!-- Tourism -->
+            <div class="demo-card">
+                <div class="demo-card-header tourism">
+                    <span class="demo-icon">🌴</span>
+                    <h3 data-en="Tourism" data-es="Turismo">Tourism</h3>
+                </div>
+                <div class="demo-card-body">
+                    <p data-en="Full concierge — restaurants, hotels, beaches, attractions." data-es="Concierge completo — restaurantes, hoteles, playas, atracciones.">Full concierge — restaurants, hotels, beaches, attractions.</p>
+                    <a href="tel:+17874686336" class="demo-number">(787) 468-6336</a>
+                    <span class="demo-tag">Bori Guides</span>
+                </div>
+            </div>
+
+            <!-- Property Management -->
+            <div class="demo-card">
+                <div class="demo-card-header realestate">
+                    <span class="demo-icon">🏢</span>
+                    <h3 data-en="Property Mgmt" data-es="Admin. Propiedades">Property Mgmt</h3>
+                </div>
+                <div class="demo-card-body">
+                    <p data-en="Maintenance requests, leasing, tenant inquiries." data-es="Solicitudes de mantenimiento, arrendamiento, consultas.">Maintenance requests, leasing, tenant inquiries.</p>
+                    <a href="tel:+17876993044" class="demo-number">(787) 699-3044</a>
+                    <span class="demo-tag" data-en="Demo Line" data-es="Línea Demo">Demo Line</span>
+                </div>
+            </div>
+
+            <!-- Short-Term Rentals -->
+            <div class="demo-card">
+                <div class="demo-card-header realestate">
+                    <span class="demo-icon">🏠</span>
+                    <h3 data-en="Airbnb / STR" data-es="Airbnb / STR">Airbnb / STR</h3>
+                </div>
+                <div class="demo-card-body">
+                    <p data-en="Check-in help, WiFi, house rules, local tips." data-es="Ayuda con check-in, WiFi, reglas, tips locales.">Check-in help, WiFi, house rules, local tips.</p>
+                    <a href="tel:+17874686291" class="demo-number">(787) 468-6291</a>
+                    <span class="demo-tag" data-en="Demo Line" data-es="Línea Demo">Demo Line</span>
+                </div>
+            </div>
+
+            <!-- Paradores -->
+            <div class="demo-card">
+                <div class="demo-card-header hospitality">
+                    <span class="demo-icon">🏨</span>
+                    <h3 data-en="Paradores" data-es="Paradores">Paradores</h3>
+                </div>
+                <div class="demo-card-body">
+                    <p data-en="Reservations, rates, availability, directions." data-es="Reservaciones, tarifas, disponibilidad, direcciones.">Reservations, rates, availability, directions.</p>
+                    <a href="tel:+17874686443" class="demo-number">(787) 468-6443</a>
+                    <span class="demo-tag" data-en="Demo Line" data-es="Línea Demo">Demo Line</span>
+                </div>
+            </div>
+
+            <!-- Boutique Hotels -->
+            <div class="demo-card">
+                <div class="demo-card-header hospitality">
+                    <span class="demo-icon">✨</span>
+                    <h3 data-en="Boutique Hotels" data-es="Hoteles Boutique">Boutique Hotels</h3>
+                </div>
+                <div class="demo-card-body">
+                    <p data-en="Reservations, concierge, amenities, special requests." data-es="Reservaciones, concierge, amenidades, pedidos especiales.">Reservations, concierge, amenities, special requests.</p>
+                    <a href="tel:+17876639401" class="demo-number">(787) 663-9401</a>
+                    <span class="demo-tag" data-en="Demo Line" data-es="Línea Demo">Demo Line</span>
+                </div>
+            </div>
+
+            <!-- Basketball Tourism -->
+            <div class="demo-card">
+                <div class="demo-card-header tourism">
+                    <span class="demo-icon">🏀</span>
+                    <h3 data-en="Basketball" data-es="Baloncesto">Basketball</h3>
+                </div>
+                <div class="demo-card-body">
+                    <p data-en="BSN games, NBA preseason, training camps, legends." data-es="Juegos BSN, pretemporada NBA, campamentos, leyendas.">BSN games, NBA preseason, training camps, legends.</p>
+                    <a href="tel:+17872939597" class="demo-number">(787) 293-9597</a>
+                    <span class="demo-tag">Bori Hoops</span>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 2rem; color: var(--gray);" data-en="All lines are live. Call now — 24/7, bilingual." data-es="Todas las líneas están activas. Llama ahora — 24/7, bilingüe.">All lines are live. Call now — 24/7, bilingual.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>VozLine</h4>
+                    <p data-en="AI call centers for businesses in Puerto Rico. 787 numbers, bilingual agents, 24/7 coverage." data-es="Call centers de IA para negocios en Puerto Rico. Números 787, agentes bilingües, cobertura 24/7.">AI call centers for businesses in Puerto Rico. 787 numbers, bilingual agents, 24/7 coverage.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-en="Products" data-es="Productos">Products</h4>
+                    <a href="https://heybori.com">Hey Bori (Tourism)</a>
+                    <a href="https://lavozpr.com">La Voz PR</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-en="Company" data-es="Compañía">Company</h4>
+                    <a href="https://gostardigital.com">GoStar Digital LLC</a>
+                    <p>San Juan, Puerto Rico</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 GoStar Digital LLC, Puerto Rico</p>
+                <span class="footer-slogan" data-en="Your AI Call Center" data-es="Tu Call Center de IA">Your AI Call Center</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = localStorage.getItem('vozline-lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('vozline-lang', lang);
+            
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en][data-es]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) el.textContent = text;
+            });
+
+            document.documentElement.lang = lang;
+        }
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        setLanguage(currentLang);
+    </script>
+</body>
+</html>
