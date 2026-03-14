@@ -1,7 +1,7 @@
 # VozLine Short-Term Rentals — Demo Agent Configuration
 
 ## Phone Number
-**(TBD — assign new 787 number)**
+**(787) 468-6291**
 
 ---
 
