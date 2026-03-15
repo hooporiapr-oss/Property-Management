@@ -882,7 +882,7 @@
             // Open email client with data
             const subject = encodeURIComponent(`New Trial: ${data.company} — ${data.name}`);
             const emailBody = encodeURIComponent(body);
-            window.location.href = `mailto:info@gostardigital.com?subject=${subject}&body=${emailBody}`;
+            window.location.href = `mailto:gostardigital@gmail.com?subject=${subject}&body=${emailBody}`;
 
             // Also save to localStorage as backup
             const submissions = JSON.parse(localStorage.getItem('nmac-submissions') || '[]');
