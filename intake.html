@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Never Miss a Call — Start Your Free Trial</title>
+    <meta name="description" content="Start your free 3-day AI call center trial. Fill out the intake form and we'll build your custom agent.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFD700;
+            --yellow-light: #FFEB3B;
+            --yellow-pale: #FFF9C4;
+            --yellow-dark: #FBC02D;
+            --black: #1a1a1a;
+            --brown: #3E2723;
+            --red: #C62828;
+            --white: #FFFFFF;
+            --gray: #757575;
+            --gray-light: #E0E0E0;
+            --green: #2E7D32;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--yellow);
+            color: var(--black);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: var(--black);
+            padding: 1rem 2rem;
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .header-tag {
+            color: var(--gray);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            background: var(--black);
+            padding: 0 2rem 1rem;
+        }
+
+        .progress-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            background: #333;
+            transition: background 0.4s ease;
+        }
+
+        .progress-step.active {
+            background: var(--yellow);
+        }
+
+        .progress-step.complete {
+            background: var(--green);
+        }
+
+        /* Form Container */
+        .form-wrapper {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem 3rem;
+        }
+
+        /* Step Sections */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Card */
+        .section-card {
+            background: var(--white);
+            border: 3px solid var(--black);
+            box-shadow: 6px 6px 0 var(--black);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--black);
+            color: var(--yellow);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-header .icon {
+            font-size: 1.3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-body {
+            padding: 1.5rem;
+        }
+
+        .section-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Form Fields */
+        .field-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .field-group label {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brown);
+            margin-bottom: 0.4rem;
+        }
+
+        .field-group label .required {
+            color: var(--red);
+        }
+
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: 'Arimo', sans-serif;
+            font-size: 1rem;
+            border: 2px solid var(--gray-light);
+            background: var(--white);
+            color: var(--black);
+            transition: border-color 0.2s;
+        }
+
+        .field-group input:focus,
+        .field-group select:focus,
+        .field-group textarea:focus {
+            outline: none;
+            border-color: var(--yellow-dark);
+        }
+
+        .field-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--yellow-dark);
+            cursor: pointer;
+        }
+
+        .checkbox-item span {
+            font-size: 0.95rem;
+        }
+
+        /* FAQ Repeater */
+        .faq-item {
+            background: var(--yellow-pale);
+            border: 1px solid var(--gray-light);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            color: var(--brown);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item input,
+        .faq-item textarea {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            font-family: 'Arimo', sans-serif;
+            font-size: 0.95rem;
+            border: 2px solid var(--gray-light);
+            background: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item input:focus,
+        .faq-item textarea:focus {
+            outline: none;
+            border-color: var(--yellow-dark);
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 2.5rem;
+            border: 3px solid var(--black);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-next {
+            background: var(--black);
+            color: var(--yellow);
+        }
+
+        .btn-next:hover {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .btn-back {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .btn-back:hover {
+            background: var(--gray-light);
+        }
+
+        .btn-submit {
+            background: var(--green);
+            color: var(--white);
+            border-color: var(--green);
+            width: 100%;
+            font-size: 1.3rem;
+            padding: 1.25rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--black);
+            color: var(--yellow);
+            border-color: var(--black);
+        }
+
+        /* Gate Hero */
+        .gate-hero {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .gate-hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .gate-hero p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .trial-badge {
+            display: inline-block;
+            background: var(--green);
+            color: var(--white);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.4rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-screen h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--brown);
+            margin-bottom: 0.75rem;
+        }
+
+        .success-screen p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-top: 8px solid var(--yellow);
+        }
+
+        footer p {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: var(--yellow);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Never Miss a Call</a>
+            <span class="header-tag">Free 3-Day Trial</span>
+        </div>
+    </header>
+
+    <div class="progress-bar">
+        <div class="progress-container">
+            <div class="progress-step active" id="prog-1"></div>
+            <div class="progress-step" id="prog-2"></div>
+            <div class="progress-step" id="prog-3"></div>
+            <div class="progress-step" id="prog-4"></div>
+        </div>
+    </div>
+
+    <div class="form-wrapper">
+
+        <!-- ============================== -->
+        <!-- STEP 1: LEAD GATE -->
+        <!-- ============================== -->
+        <div class="form-step active" id="step-1">
+            <div class="gate-hero">
+                <span class="trial-badge">Free 3-Day Trial</span>
+                <h1>Let's Build Your AI Call Center</h1>
+                <p>Tell us who you are and we'll get started.</p>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="icon">👤</span>
+                    <h2>Your Info</h2>
+                </div>
+                <div class="section-body">
+                    <div class="field-group">
+                        <label>Your Name <span class="required">*</span></label>
+                        <input type="text" id="contact-name" required placeholder="Full name">
+                    </div>
+                    <div class="field-group">
+                        <label>Company Name <span class="required">*</span></label>
+                        <input type="text" id="company-name" required placeholder="Your business name">
+                    </div>
+                    <div class="field-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="contact-email" required placeholder="you@business.com">
+                    </div>
+                    <div class="field-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="contact-phone" placeholder="(787) 000-0000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-row" style="justify-content: flex-end;">
+                <button class="btn btn-next" onclick="goToStep(2)">Next →</button>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- STEP 2: BUSINESS DETAILS -->
+        <!-- ============================== -->
+        <div class="form-step" id="step-2">
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="icon">🏢</span>
+                    <h2>Business Details</h2>
+                </div>
+                <div class="section-body">
+                    <div class="section-desc">Tell us about your business so we can build the perfect AI agent.</div>
+
+                    <div class="field-group">
+                        <label>Business Type / Industry <span class="required">*</span></label>
+                        <select id="biz-type">
+                            <option value="">Select one...</option>
+                            <option value="restaurant">Restaurant / Food</option>
+                            <option value="hotel">Hotel / Parador</option>
+                            <option value="str">Short-Term Rental / Airbnb</option>
+                            <option value="realestate">Real Estate / Property Mgmt</option>
+                            <option value="auto">Auto / Dealer / Mechanic</option>
+                            <option value="contractor">Contractor / Home Services</option>
+                            <option value="medical">Medical / Dental</option>
+                            <option value="legal">Legal / Law Firm</option>
+                            <option value="salon">Salon / Barbershop / Spa</option>
+                            <option value="tourism">Tourism / Tours</option>
+                            <option value="retail">Retail / Store</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Describe Your Business</label>
+                        <textarea id="biz-desc" placeholder="How would you explain your business to a new customer? (2-3 sentences)"></textarea>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label>Location</label>
+                            <input type="text" id="biz-location" placeholder="City, PR">
+                        </div>
+                        <div class="field-group">
+                            <label>Website</label>
+                            <input type="text" id="biz-website" placeholder="www.yourbusiness.com">
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label>Business Hours</label>
+                            <input type="text" id="biz-hours" placeholder="e.g. Mon-Fri 8am-6pm, Sat 9am-2pm">
+                        </div>
+                        <div class="field-group">
+                            <label>Languages Needed</label>
+                            <select id="biz-lang">
+                                <option value="both">English & Spanish</option>
+                                <option value="english">English Only</option>
+                                <option value="spanish">Spanish Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Main Services or Products</label>
+                        <textarea id="biz-services" placeholder="List your main services or products, one per line"></textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Price Ranges (if applicable)</label>
+                        <input type="text" id="biz-prices" placeholder="e.g. Rooms from $89/night, Tours from $45/person">
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goToStep(1)">← Back</button>
+                <button class="btn btn-next" onclick="goToStep(3)">Next →</button>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- STEP 3: CALL HANDLING & FAQs -->
+        <!-- ============================== -->
+        <div class="form-step" id="step-3">
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="icon">📞</span>
+                    <h2>Call Handling</h2>
+                </div>
+                <div class="section-body">
+                    <div class="section-desc">How do you handle calls now, and what should the AI agent know?</div>
+
+                    <div class="field-group">
+                        <label>Top Reasons People Call Your Business</label>
+                        <textarea id="call-reasons" placeholder="List the top 5 reasons people call you, one per line"></textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label>How Do You Currently Handle Calls?</label>
+                        <select id="call-current">
+                            <option value="">Select one...</option>
+                            <option value="receptionist">Receptionist / front desk</option>
+                            <option value="personal">Personal cell phone</option>
+                            <option value="voicemail">Voicemail</option>
+                            <option value="answering">Answering service</option>
+                            <option value="none">No system — calls get missed</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Does Your Business Take Appointments?</label>
+                        <select id="call-appts">
+                            <option value="no">No</option>
+                            <option value="yes-phone">Yes — by phone</option>
+                            <option value="yes-online">Yes — online booking</option>
+                            <option value="yes-both">Yes — phone and online</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Emergency / Transfer Number</label>
+                        <input type="tel" id="call-emergency" placeholder="Number to transfer urgent calls to (optional)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="icon">❓</span>
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                <div class="section-body">
+                    <div class="section-desc">What do callers ask most? Give us the questions and answers — this becomes your agent's brain.</div>
+
+                    <div id="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-number">FAQ #1</div>
+                            <input type="text" class="faq-q" placeholder="Question callers ask...">
+                            <textarea class="faq-a" rows="2" placeholder="The correct answer..."></textarea>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-number">FAQ #2</div>
+                            <input type="text" class="faq-q" placeholder="Question callers ask...">
+                            <textarea class="faq-a" rows="2" placeholder="The correct answer..."></textarea>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-number">FAQ #3</div>
+                            <input type="text" class="faq-q" placeholder="Question callers ask...">
+                            <textarea class="faq-a" rows="2" placeholder="The correct answer..."></textarea>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-number">FAQ #4</div>
+                            <input type="text" class="faq-q" placeholder="Question callers ask...">
+                            <textarea class="faq-a" rows="2" placeholder="The correct answer..."></textarea>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-number">FAQ #5</div>
+                            <input type="text" class="faq-q" placeholder="Question callers ask...">
+                            <textarea class="faq-a" rows="2" placeholder="The correct answer..."></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-back" style="font-size: 0.85rem; padding: 0.5rem 1rem; margin-top: 0.5rem;" onclick="addFAQ()">+ Add More</button>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goToStep(2)">← Back</button>
+                <button class="btn btn-next" onclick="goToStep(4)">Next →</button>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- STEP 4: PERSONALITY & SUBMIT -->
+        <!-- ============================== -->
+        <div class="form-step" id="step-4">
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="icon">🎙️</span>
+                    <h2>Agent Personality</h2>
+                </div>
+                <div class="section-body">
+                    <div class="section-desc">How should your AI agent sound when it answers your calls?</div>
+
+                    <div class="field-group">
+                        <label>Tone & Style</label>
+                        <select id="agent-tone">
+                            <option value="professional-friendly">Professional & Friendly</option>
+                            <option value="casual-warm">Casual & Warm</option>
+                            <option value="formal">Formal & Corporate</option>
+                            <option value="energetic">Energetic & Upbeat</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Any Specific Greetings or Phrases You Use?</label>
+                        <input type="text" id="agent-greetings" placeholder="e.g. 'Gracias por llamar a...' or 'Thanks for calling...'">
+                    </div>
+
+                    <div class="field-group">
+                        <label>Anything the Agent Should AVOID Saying?</label>
+                        <input type="text" id="agent-avoid" placeholder="Words, topics, or competitors to never mention">
+                    </div>
+
+                    <div class="field-group">
+                        <label>What Makes Your Business Different?</label>
+                        <textarea id="agent-diff" placeholder="What should the agent highlight that sets you apart from competitors?"></textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Current Promotions or Specials?</label>
+                        <input type="text" id="agent-promos" placeholder="Any deals the agent should mention to callers?">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="icon">📋</span>
+                    <h2>Message Taking</h2>
+                </div>
+                <div class="section-body">
+                    <div class="section-desc">When the agent can't resolve a call, what info should it capture?</div>
+
+                    <div class="field-group">
+                        <label>Capture From Caller:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item"><input type="checkbox" checked value="name"><span>Name</span></label>
+                            <label class="checkbox-item"><input type="checkbox" checked value="phone"><span>Phone Number</span></label>
+                            <label class="checkbox-item"><input type="checkbox" checked value="email"><span>Email</span></label>
+                            <label class="checkbox-item"><input type="checkbox" checked value="reason"><span>Reason for Call</span></label>
+                            <label class="checkbox-item"><input type="checkbox" value="callback"><span>Best Callback Time</span></label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Where Should Messages Be Sent?</label>
+                        <select id="msg-delivery">
+                            <option value="email">Email</option>
+                            <option value="text">Text / SMS</option>
+                            <option value="both">Both Email & Text</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="icon">💬</span>
+                    <h2>Anything Else?</h2>
+                </div>
+                <div class="section-body">
+                    <div class="field-group">
+                        <label>Additional Notes</label>
+                        <textarea id="extra-notes" placeholder="Anything else we should know about your business or how you want calls handled?"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goToStep(3)">← Back</button>
+            </div>
+            <button class="btn btn-submit" onclick="submitForm()" style="margin-top: 1rem;">Submit — Start My Free Trial</button>
+        </div>
+
+        <!-- ============================== -->
+        <!-- SUCCESS SCREEN -->
+        <!-- ============================== -->
+        <div class="form-step" id="step-success">
+            <div class="success-screen">
+                <div class="success-icon">✅</div>
+                <h2>You're In!</h2>
+                <p>We'll build your custom AI call center and have it ready within 24-48 hours. You'll receive an email with your dedicated 787 number and next steps.</p>
+                <p style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: var(--brown); text-transform: uppercase; letter-spacing: 2px;">Never Miss a Customer Again.</p>
+                <a href="index.html" class="btn btn-next" style="display: inline-block; text-decoration: none; margin-top: 1rem;">Back to Home</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 <a href="https://gostardigital.com">GoStar Digital LLC</a>, Puerto Rico — <a href="https://nevermissacall.center">NeverMissaCall.Center</a></p>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function goToStep(step) {
+            // Validate step 1 required fields
+            if (currentStep === 1 && step > 1) {
+                const name = document.getElementById('contact-name').value.trim();
+                const company = document.getElementById('company-name').value.trim();
+                const email = document.getElementById('contact-email').value.trim();
+
+                if (!name || !company || !email) {
+                    alert('Please fill in your name, company, and email to continue.');
+                    return;
+                }
+
+                if (!email.includes('@') || !email.includes('.')) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+            }
+
+            // Hide current step
+            document.getElementById('step-' + currentStep).classList.remove('active');
+
+            // Show new step
+            currentStep = step;
+            document.getElementById('step-' + step).classList.add('active');
+
+            // Update progress bar
+            for (let i = 1; i <= totalSteps; i++) {
+                const prog = document.getElementById('prog-' + i);
+                prog.classList.remove('active', 'complete');
+                if (i < step) prog.classList.add('complete');
+                if (i === step) prog.classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        let faqCount = 5;
+
+        function addFAQ() {
+            faqCount++;
+            const faqList = document.getElementById('faq-list');
+            const item = document.createElement('div');
+            item.className = 'faq-item';
+            item.innerHTML = `
+                <div class="faq-number">FAQ #${faqCount}</div>
+                <input type="text" class="faq-q" placeholder="Question callers ask...">
+                <textarea class="faq-a" rows="2" placeholder="The correct answer..."></textarea>
+            `;
+            faqList.appendChild(item);
+        }
+
+        function submitForm() {
+            // Collect all data
+            const data = {
+                // Step 1 - Lead Info
+                name: document.getElementById('contact-name').value,
+                company: document.getElementById('company-name').value,
+                email: document.getElementById('contact-email').value,
+                phone: document.getElementById('contact-phone').value,
+
+                // Step 2 - Business
+                type: document.getElementById('biz-type').value,
+                description: document.getElementById('biz-desc').value,
+                location: document.getElementById('biz-location').value,
+                website: document.getElementById('biz-website').value,
+                hours: document.getElementById('biz-hours').value,
+                language: document.getElementById('biz-lang').value,
+                services: document.getElementById('biz-services').value,
+                prices: document.getElementById('biz-prices').value,
+
+                // Step 3 - Calls
+                callReasons: document.getElementById('call-reasons').value,
+                currentHandling: document.getElementById('call-current').value,
+                appointments: document.getElementById('call-appts').value,
+                emergencyNumber: document.getElementById('call-emergency').value,
+
+                // FAQs
+                faqs: [],
+
+                // Step 4 - Personality
+                tone: document.getElementById('agent-tone').value,
+                greetings: document.getElementById('agent-greetings').value,
+                avoid: document.getElementById('agent-avoid').value,
+                differentiator: document.getElementById('agent-diff').value,
+                promos: document.getElementById('agent-promos').value,
+                messageDelivery: document.getElementById('msg-delivery').value,
+                notes: document.getElementById('extra-notes').value
+            };
+
+            // Collect FAQs
+            const questions = document.querySelectorAll('.faq-q');
+            const answers = document.querySelectorAll('.faq-a');
+            for (let i = 0; i < questions.length; i++) {
+                if (questions[i].value.trim()) {
+                    data.faqs.push({
+                        q: questions[i].value,
+                        a: answers[i].value
+                    });
+                }
+            }
+
+            // Collect checkboxes
+            const captures = [];
+            document.querySelectorAll('.checkbox-group input:checked').forEach(cb => {
+                captures.push(cb.value);
+            });
+            data.captureFields = captures;
+
+            // Build email body
+            let body = `NEW TRIAL REQUEST — Never Miss a Call\n\n`;
+            body += `=== CONTACT ===\n`;
+            body += `Name: ${data.name}\nCompany: ${data.company}\nEmail: ${data.email}\nPhone: ${data.phone}\n\n`;
+            body += `=== BUSINESS ===\n`;
+            body += `Type: ${data.type}\nDescription: ${data.description}\nLocation: ${data.location}\nWebsite: ${data.website}\nHours: ${data.hours}\nLanguages: ${data.language}\nServices: ${data.services}\nPrices: ${data.prices}\n\n`;
+            body += `=== CALL HANDLING ===\n`;
+            body += `Top Call Reasons: ${data.callReasons}\nCurrent System: ${data.currentHandling}\nAppointments: ${data.appointments}\nEmergency #: ${data.emergencyNumber}\n\n`;
+            body += `=== FAQs ===\n`;
+            data.faqs.forEach((faq, i) => {
+                body += `${i + 1}. Q: ${faq.q}\n   A: ${faq.a}\n`;
+            });
+            body += `\n=== AGENT PERSONALITY ===\n`;
+            body += `Tone: ${data.tone}\nGreetings: ${data.greetings}\nAvoid: ${data.avoid}\nDifferentiator: ${data.differentiator}\nPromos: ${data.promos}\n\n`;
+            body += `=== MESSAGES ===\n`;
+            body += `Capture: ${data.captureFields.join(', ')}\nDelivery: ${data.messageDelivery}\n\n`;
+            body += `=== NOTES ===\n${data.notes}\n`;
+
+            // Open email client with data
+            const subject = encodeURIComponent(`New Trial: ${data.company} — ${data.name}`);
+            const emailBody = encodeURIComponent(body);
+            window.location.href = `mailto:info@gostardigital.com?subject=${subject}&body=${emailBody}`;
+
+            // Also save to localStorage as backup
+            const submissions = JSON.parse(localStorage.getItem('nmac-submissions') || '[]');
+            submissions.push({ ...data, timestamp: new Date().toISOString() });
+            localStorage.setItem('nmac-submissions', JSON.stringify(submissions));
+
+            // Show success
+            setTimeout(() => {
+                document.getElementById('step-4').classList.remove('active');
+                document.getElementById('step-success').classList.add('active');
+
+                // Mark all progress complete
+                for (let i = 1; i <= totalSteps; i++) {
+                    document.getElementById('prog-' + i).classList.remove('active');
+                    document.getElementById('prog-' + i).classList.add('complete');
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        }
+    </script>
+
+</body>
+</html>
