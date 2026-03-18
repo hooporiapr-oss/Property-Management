@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VozReport™ — Never Miss a Call Center</title>
+    <meta name="description" content="VozReport™ — Bilingual call reports delivered to your inbox after every call. Powered by LaVoz.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFD700;
+            --yellow-light: #FFEB3B;
+            --yellow-pale: #FFF9C4;
+            --yellow-dark: #FBC02D;
+            --black: #1a1a1a;
+            --brown: #3E2723;
+            --red: #C62828;
+            --blue: #0D47A1;
+            --white: #FFFFFF;
+            --gray: #757575;
+            --green: #2E7D32;
+            --navy: #0a2540;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--yellow);
+            color: var(--black);
+            line-height: 1.5;
+        }
+
+        /* Header */
+        header {
+            background: var(--black);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover { color: var(--yellow); }
+
+        .lang-toggle { display: flex; gap: 0.5rem; }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: 2px solid var(--yellow);
+            background: transparent;
+            color: var(--yellow);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--black);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            border-bottom: 8px solid var(--yellow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--black);
+            background: var(--yellow);
+            padding: 6px 20px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .hero h1 span {
+            color: var(--yellow);
+        }
+
+        .hero .subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .desc {
+            color: #aaa;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border: 3px solid var(--yellow);
+            transition: all 0.2s;
+        }
+
+        .btn-primary { background: var(--yellow); color: var(--black); }
+        .btn-primary:hover { background: var(--white); }
+        .btn-secondary { background: transparent; color: var(--yellow); }
+        .btn-secondary:hover { background: var(--yellow); color: var(--black); }
+
+        /* Email Preview */
+        .preview-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .preview-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--brown);
+        }
+
+        .email-mockup {
+            max-width: 620px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .email-topbar {
+            background: #e0e0e0;
+            border-radius: 10px 10px 0 0;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .email-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+        }
+
+        .email-dot.red { background: #ff5f57; }
+        .email-dot.yellow { background: #febc2e; }
+        .email-dot.green { background: #28c840; }
+
+        .email-subject {
+            margin-left: 12px;
+            font-size: 0.85rem;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .email-body {
+            background: white;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .email-header-bar {
+            background: var(--navy);
+            color: white;
+            padding: 18px 22px;
+        }
+
+        .email-header-bar h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .email-header-bar p {
+            font-size: 0.75rem;
+            color: #a0b4c8;
+            margin-top: 4px;
+        }
+
+        .email-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 14px 22px 0;
+        }
+
+        .email-badge.new-appt { background: #e3f2fd; color: #0D47A1; border-left: 4px solid #0D47A1; }
+        .email-badge.confirm { background: #e8f5e9; color: #28a745; border-left: 4px solid #28a745; }
+        .email-badge.cancel { background: #ffebee; color: #dc3545; border-left: 4px solid #dc3545; }
+
+        .email-content { padding: 16px 22px; }
+
+        .email-section-label {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 14px 0 8px;
+        }
+
+        .email-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        .email-table td {
+            padding: 7px 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .email-table td:first-child {
+            font-weight: 700;
+            color: var(--navy);
+            width: 38%;
+        }
+
+        .email-usage {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 14px;
+        }
+
+        .email-usage-label {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .usage-bar {
+            background: #eee;
+            border-radius: 6px;
+            height: 16px;
+            overflow: hidden;
+        }
+
+        .usage-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: var(--green);
+            transition: width 1.5s ease;
+        }
+
+        .usage-text {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .email-summary {
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--navy);
+            padding: 12px;
+            margin-top: 14px;
+        }
+
+        .email-summary-label {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 0.82rem;
+            margin-bottom: 4px;
+        }
+
+        .email-summary p {
+            font-size: 0.8rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .email-footer {
+            background: #f8f9fa;
+            text-align: center;
+            padding: 12px;
+            font-size: 0.65rem;
+            color: #999;
+        }
+
+        /* Call Types */
+        .types-section {
+            background: var(--black);
+            padding: 3rem 2rem;
+            border-top: 8px solid var(--yellow);
+            border-bottom: 8px solid var(--yellow);
+        }
+
+        .types-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .types-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .types-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--yellow);
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .type-card {
+            background: rgba(255,215,0,0.05);
+            border: 2px solid rgba(255,215,0,0.2);
+            padding: 1.5rem;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 3px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .type-badge.blue { background: #0D47A1; color: white; }
+        .type-badge.green { background: #28a745; color: white; }
+        .type-badge.orange { background: #ff9800; color: white; }
+        .type-badge.red { background: #dc3545; color: white; }
+        .type-badge.purple { background: #6A1B9A; color: white; }
+
+        .type-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .type-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Features */
+        .features-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px double var(--black);
+        }
+
+        .features-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--brown);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 3px solid var(--black);
+            box-shadow: 4px 4px 0 var(--black);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--brown);
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* CTA */
+        .cta-section {
+            background: var(--black);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 8px solid var(--yellow);
+        }
+
+        .cta-section h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        footer p { color: var(--gray); font-size: 0.8rem; }
+        footer a { color: var(--yellow); text-decoration: none; }
+        footer a:hover { color: var(--white); }
+
+        .footer-links { margin-top: 0.75rem; }
+        .footer-links a { color: var(--gray); font-size: 0.75rem; margin: 0 0.5rem; }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--yellow);
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.97);
+            z-index: 150;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu a:hover { color: var(--yellow); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .types-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate { animation: fadeUp 0.6s ease forwards; }
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo" data-en="Never Miss a Call" data-es="Never Miss a Call">Never Miss a Call</a>
+            <div class="nav-links">
+                <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
+                <a href="medical.html" data-en="For Doctors" data-es="Para Doctores">For Doctors</a>
+                <a href="index.html#pricing" data-en="Pricing" data-es="Precios">Pricing</a>
+                <a href="intake.html" data-en="Start Free" data-es="Comenzar Gratis">Start Free</a>
+                <a href="tel:+17875582312" style="color: var(--yellow);" data-en="Contact Us" data-es="Contáctanos">Contact Us</a>
+            </div>
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="es">ES</button>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
+        <a href="medical.html" data-en="For Doctors" data-es="Para Doctores">For Doctors</a>
+        <a href="index.html#pricing" onclick="toggleMenu()" data-en="Pricing" data-es="Precios">Pricing</a>
+        <a href="intake.html" data-en="Start Free" data-es="Comenzar Gratis">Start Free</a>
+        <a href="tel:+17875582312" data-en="Contact Us" data-es="Contáctanos" style="color: var(--yellow);">Contact Us</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge animate delay-1" data-en="Included with Every Plan" data-es="Incluido en Cada Plan">Included with Every Plan</div>
+        <h1 class="animate delay-2">Voz<span>Report</span>™</h1>
+        <p class="subtitle animate delay-3" data-en="Every Call. Every Detail. Your Inbox." data-es="Cada Llamada. Cada Detalle. Tu Correo.">Every Call. Every Detail. Your Inbox.</p>
+        <p class="desc animate delay-4" data-en="After every call LaVoz handles, you receive a professional, bilingual call report delivered straight to your email. Caller info, reason, symptoms, insurance, urgency — organized and ready to act on." data-es="Después de cada llamada que LaVoz atiende, recibes un reporte profesional y bilingüe directo a tu correo. Información del llamante, razón, síntomas, seguro, urgencia — organizado y listo para actuar.">After every call LaVoz handles, you receive a professional, bilingual call report delivered straight to your email. Caller info, reason, symptoms, insurance, urgency — organized and ready to act on.</p>
+        <div class="hero-cta">
+            <a href="intake.html" class="btn btn-primary" data-en="Get Started" data-es="Comenzar">Get Started</a>
+            <a href="index.html#pricing" class="btn btn-secondary" data-en="See Plans" data-es="Ver Planes">See Plans</a>
+        </div>
+    </section>
+
+    <!-- Email Preview -->
+    <section class="preview-section">
+        <div class="preview-header">
+            <h2 data-en="─── What You Receive ───" data-es="─── Lo Que Recibes ───">─── What You Receive ───</h2>
+        </div>
+
+        <div class="email-mockup">
+            <div class="email-topbar">
+                <div class="email-dot red"></div>
+                <div class="email-dot yellow"></div>
+                <div class="email-dot green"></div>
+                <span class="email-subject" data-en="VozReport — Your Office Name" data-es="VozReport — Nombre de Tu Oficina">VozReport — Your Office Name</span>
+            </div>
+            <div class="email-body">
+                <div class="email-header-bar">
+                    <h3 data-en="VozReport — Your Office Name" data-es="VozReport — Nombre de Tu Oficina">VozReport — Your Office Name</h3>
+                    <p>March 18, 2026 — 2:15 PM</p>
+                </div>
+
+                <div class="email-badge new-appt" data-en="CALL TYPE: NEW APPOINTMENT" data-es="TIPO DE LLAMADA: CITA NUEVA">CALL TYPE: NEW APPOINTMENT</div>
+
+                <div class="email-content">
+                    <p class="email-section-label" data-en="Caller Information" data-es="Información del Llamante">Caller Information</p>
+                    <table class="email-table">
+                        <tr><td data-en="Caller Name" data-es="Nombre">Caller Name</td><td>María López</td></tr>
+                        <tr><td data-en="Phone" data-es="Teléfono">Phone</td><td>(787) 555-1234</td></tr>
+                        <tr><td data-en="New / Existing" data-es="Nuevo / Existente">New / Existing</td><td data-en="New" data-es="Nuevo">New</td></tr>
+                        <tr><td data-en="Language" data-es="Idioma">Language</td><td data-en="Spanish" data-es="Español">Spanish</td></tr>
+                    </table>
+
+                    <p class="email-section-label" data-en="Call Details" data-es="Detalles de la Llamada">Call Details</p>
+                    <table class="email-table">
+                        <tr><td data-en="Reason" data-es="Razón">Reason</td><td data-en="Appointment — shoulder pain" data-es="Cita — dolor de hombro">Appointment — shoulder pain</td></tr>
+                        <tr><td data-en="Urgency" data-es="Urgencia">Urgency</td><td style="color: #28a745; font-weight: 700;" data-en="Routine" data-es="Rutina">Routine</td></tr>
+                        <tr><td data-en="Symptoms" data-es="Síntomas">Symptoms</td><td data-en="Sharp pain in right shoulder, 2 weeks" data-es="Dolor agudo en hombro derecho, 2 semanas">Sharp pain in right shoulder, 2 weeks</td></tr>
+                        <tr><td data-en="Duration" data-es="Duración">Duration</td><td data-en="2.42 minutes" data-es="2.42 minutos">2.42 minutes</td></tr>
+                    </table>
+
+                    <p class="email-section-label" data-en="Scheduling & Insurance" data-es="Citas y Seguro">Scheduling & Insurance</p>
+                    <table class="email-table">
+                        <tr><td data-en="Preferred Time" data-es="Horario Preferido">Preferred Time</td><td data-en="Monday morning" data-es="Lunes por la mañana">Monday morning</td></tr>
+                        <tr><td data-en="Insurance" data-es="Seguro Médico">Insurance</td><td data-en="Caller's Insurance Plan" data-es="Plan de Seguro del Llamante">Caller's Insurance Plan</td></tr>
+                        <tr><td data-en="Referring Doctor" data-es="Doctor que Refiere">Referring Doctor</td><td data-en="Referring Doctor Name" data-es="Nombre del Doctor que Refiere">Referring Doctor Name</td></tr>
+                    </table>
+
+                    <div style="margin-top:14px;padding:12px;background:#e3f2fd;border-radius:8px;border-left:4px solid #0D47A1;">
+                        <p style="margin:0;color:#0D47A1;font-weight:700;font-size:0.75rem;" data-en="How They Heard About Us" data-es="Cómo Nos Conoció">How They Heard About Us</p>
+                        <p style="margin:4px 0 0;color:#333;font-size:0.82rem;">Google</p>
+                    </div>
+
+                    <div class="email-usage">
+                        <p class="email-usage-label" data-en="Plan Usage" data-es="Uso del Plan">Plan Usage</p>
+                        <div class="usage-bar"><div class="usage-fill" style="width: 25%;"></div></div>
+                        <p class="usage-text">12.5 / 50 min (25%)</p>
+                    </div>
+
+                    <div class="email-summary">
+                        <p class="email-summary-label" data-en="Call Summary" data-es="Resumen de la Llamada">Call Summary</p>
+                        <p data-en="Patient María López called to request an appointment for shoulder pain. She prefers Monday morning. Office will call back to confirm availability." data-es="La paciente María López llamó para solicitar una cita por dolor de hombro. Prefiere lunes por la mañana. La oficina le devolverá la llamada para confirmar disponibilidad.">Patient María López called to request an appointment for shoulder pain. She prefers Monday morning. Office will call back to confirm availability.</p>
+                    </div>
+                </div>
+
+                <div class="email-footer">VozReport™ by Never Miss a Call Center</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call Types -->
+    <section class="types-section">
+        <div class="types-container">
+            <div class="types-header">
+                <h2 data-en="Smart Reports for Every Call Type" data-es="Reportes Inteligentes para Cada Tipo de Llamada">Smart Reports for Every Call Type</h2>
+            </div>
+            <div class="types-grid">
+                <div class="type-card">
+                    <div class="type-badge blue" data-en="New Appointment" data-es="Cita Nueva">New Appointment</div>
+                    <h3 data-en="Full Detail Report" data-es="Reporte Completo">Full Detail Report</h3>
+                    <p data-en="Name, phone, symptoms, insurance, preferred time, referral source, work injury flag, and how they found you. Everything the office needs." data-es="Nombre, teléfono, síntomas, seguro, horario preferido, fuente de referencia, lesión laboral y cómo te encontraron. Todo lo que la oficina necesita.">Name, phone, symptoms, insurance, preferred time, referral source, work injury flag, and how they found you. Everything the office needs.</p>
+                </div>
+                <div class="type-card">
+                    <div class="type-badge green" data-en="Confirm" data-es="Confirmar">Confirm</div>
+                    <h3 data-en="Quick Confirmation" data-es="Confirmación Rápida">Quick Confirmation</h3>
+                    <p data-en="Clean and short. Name, appointment date — that's it. No unnecessary fields. The office sees the confirmation instantly." data-es="Limpio y corto. Nombre, fecha de cita — eso es todo. Sin campos innecesarios. La oficina ve la confirmación al instante.">Clean and short. Name, appointment date — that's it. No unnecessary fields. The office sees the confirmation instantly.</p>
+                </div>
+                <div class="type-card">
+                    <div class="type-badge orange" data-en="Reschedule" data-es="Reprogramar">Reschedule</div>
+                    <h3 data-en="Change Request" data-es="Solicitud de Cambio">Change Request</h3>
+                    <p data-en="Current appointment, requested new time, and reason for change. Office can act on it immediately without calling back to ask." data-es="Cita actual, nuevo horario solicitado y razón del cambio. La oficina puede actuar de inmediato sin tener que devolver la llamada.">Current appointment, requested new time, and reason for change. Office can act on it immediately without calling back to ask.</p>
+                </div>
+                <div class="type-card">
+                    <div class="type-badge red" data-en="Cancellation" data-es="Cancelación">Cancellation</div>
+                    <h3 data-en="Cancel + Reschedule Flag" data-es="Cancelar + Opción de Reprogramar">Cancel + Reschedule Flag</h3>
+                    <p data-en="Appointment date, reason for cancellation, and whether the patient wants to reschedule. Red flag so the office sees it immediately." data-es="Fecha de cita, razón de cancelación y si el paciente desea reprogramar. Alerta roja para que la oficina lo vea de inmediato.">Appointment date, reason for cancellation, and whether the patient wants to reschedule. Red flag so the office sees it immediately.</p>
+                </div>
+                <div class="type-card">
+                    <div class="type-badge purple" data-en="Prescription Refill" data-es="Receta Médica">Prescription Refill</div>
+                    <h3 data-en="Medication + Pharmacy" data-es="Medicamento + Farmacia">Medication + Pharmacy</h3>
+                    <p data-en="Patient name, date of birth, medication name, and which pharmacy to send it to. The doctor can approve the refill without a callback." data-es="Nombre del paciente, fecha de nacimiento, nombre del medicamento y a qué farmacia enviarlo. El doctor puede aprobar sin devolver la llamada.">Patient name, date of birth, medication name, and which pharmacy to send it to. The doctor can approve the refill without a callback.</p>
+                </div>
+                <div class="type-card">
+                    <div class="type-badge blue" data-en="General Question" data-es="Pregunta General">General Question</div>
+                    <h3 data-en="Quick Answer or Callback" data-es="Respuesta Rápida o Callback">Quick Answer or Callback</h3>
+                    <p data-en="LaVoz answers from your business info when possible. If not, she captures the question and contact info for follow-up." data-es="LaVoz contesta con la información de tu negocio cuando es posible. Si no, captura la pregunta y la información de contacto para seguimiento.">LaVoz answers from your business info when possible. If not, she captures the question and contact info for follow-up.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section">
+        <div class="features-header">
+            <h2 data-en="─── Why VozReport™ ───" data-es="─── Por Qué VozReport™ ───">─── Why VozReport™ ───</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">🌐</div>
+                <h3 data-en="Bilingual" data-es="Bilingüe">Bilingual</h3>
+                <p data-en="Reports deliver in the caller's language automatically. Spanish call? Spanish report. English call? English report." data-es="Los reportes se entregan en el idioma del llamante automáticamente. ¿Llamada en español? Reporte en español. ¿Llamada en inglés? Reporte en inglés.">Reports deliver in the caller's language automatically. Spanish call? Spanish report. English call? English report.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3 data-en="Usage Tracking" data-es="Rastreo de Uso">Usage Tracking</h3>
+                <p data-en="Every report includes a visual usage bar showing how many minutes you've used this month. Alerts at 80% and 100%." data-es="Cada reporte incluye una barra visual de uso mostrando cuántos minutos has usado este mes. Alertas al 80% y 100%.">Every report includes a visual usage bar showing how many minutes you've used this month. Alerts at 80% and 100%.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🧠</div>
+                <h3 data-en="Smart Adaptation" data-es="Adaptación Inteligente">Smart Adaptation</h3>
+                <p data-en="The report adapts to the call type. A confirmation doesn't show symptoms. A refill shows the pharmacy. Only relevant info appears." data-es="El reporte se adapta al tipo de llamada. Una confirmación no muestra síntomas. Una receta muestra la farmacia. Solo aparece información relevante.">The report adapts to the call type. A confirmation doesn't show symptoms. A refill shows the pharmacy. Only relevant info appears.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📈</div>
+                <h3 data-en="Referral Tracking" data-es="Rastreo de Referidos">Referral Tracking</h3>
+                <p data-en="Every new patient report captures how they heard about you. Google, referral, insurance list — track your marketing for free." data-es="Cada reporte de paciente nuevo captura cómo te encontraron. Google, referido, lista de seguros — rastrea tu marketing gratis.">Every new patient report captures how they heard about you. Google, referral, insurance list — track your marketing for free.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h3 data-en="Instant Delivery" data-es="Entrega Instantánea">Instant Delivery</h3>
+                <p data-en="Reports hit your inbox seconds after the call ends. No delays, no dashboard to check, no app to download." data-es="Los reportes llegan a tu correo segundos después de que termina la llamada. Sin demoras, sin dashboard, sin app que descargar.">Reports hit your inbox seconds after the call ends. No delays, no dashboard to check, no app to download.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔒</div>
+                <h3 data-en="No Branding" data-es="Sin Marca Visible">No Branding</h3>
+                <p data-en="Reports show your office name — never ours. Your patients and staff see a professional system that looks like it's yours." data-es="Los reportes muestran el nombre de tu oficina — nunca el nuestro. Tus pacientes y personal ven un sistema profesional que parece tuyo.">Reports show your office name — never ours. Your patients and staff see a professional system that looks like it's yours.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 data-en="LaVoz Answers. VozReport™ Delivers." data-es="LaVoz Contesta. VozReport™ Entrega.">LaVoz Answers. VozReport™ Delivers.</h2>
+        <p data-en="Every plan includes VozReport™. Start free and see it in action with your first call." data-es="Cada plan incluye VozReport™. Comienza gratis y vélo en acción con tu primera llamada.">Every plan includes VozReport™. Start free and see it in action with your first call.</p>
+        <a href="intake.html" class="btn btn-primary" data-en="Start Free" data-es="Comenzar Gratis">Start Free</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Never Miss a Call Center™ — <a href="tel:+17875582312">(787) 558-2312</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">GoStar Digital LLC — San Juan, Puerto Rico</p>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('active');
+        }
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = localStorage.getItem('nevermissacall-lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('nevermissacall-lang', lang);
+            langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+            document.querySelectorAll('[data-en][data-es]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) el.textContent = text;
+            });
+            document.documentElement.lang = lang;
+        }
+
+        langBtns.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+        setLanguage(currentLang);
+    </script>
+</body>
+</html>
