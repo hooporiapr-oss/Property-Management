@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Receptionist for Medical Practices — Never Miss a Call Center™</title>
+    <meta name="description" content="AI-powered bilingual receptionist for doctors and medical practices in Puerto Rico. Never miss a patient call again.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFD700;
+            --yellow-light: #FFEB3B;
+            --yellow-pale: #FFF9C4;
+            --yellow-dark: #FBC02D;
+            --black: #1a1a1a;
+            --brown: #3E2723;
+            --red: #C62828;
+            --blue: #0D47A1;
+            --white: #FFFFFF;
+            --gray: #757575;
+            --green: #2E7D32;
+            --navy: #0a2540;
+            --med-blue: #1565C0;
+            --med-light: #E3F2FD;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--black);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover { color: var(--yellow); }
+
+        .lang-toggle { display: flex; gap: 0.5rem; }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: 2px solid var(--yellow);
+            background: transparent;
+            color: var(--yellow);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active { background: var(--yellow); color: var(--black); }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--yellow);
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.97);
+            z-index: 150;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .mobile-menu a:hover { color: var(--yellow); }
+
+        /* Hero — Medical */
+        .med-hero {
+            background: linear-gradient(170deg, var(--navy) 0%, #0d1b2a 100%);
+            padding: 4rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .med-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(21,101,192,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(255,215,0,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .med-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 8px;
+            background: var(--yellow);
+        }
+
+        .med-badge {
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--white);
+            background: var(--med-blue);
+            padding: 6px 20px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .med-hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .med-hero h1 span { color: var(--yellow); }
+
+        .med-hero .subtitle {
+            font-size: 1.2rem;
+            color: #a0b4c8;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+        }
+
+        .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+
+        .btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border: 3px solid var(--yellow);
+            transition: all 0.2s;
+        }
+
+        .btn-primary { background: var(--yellow); color: var(--black); }
+        .btn-primary:hover { background: var(--white); }
+        .btn-secondary { background: transparent; color: var(--yellow); }
+        .btn-secondary:hover { background: var(--yellow); color: var(--black); }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--yellow);
+            padding: 2rem;
+            border-bottom: 4px solid var(--black);
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            color: var(--black);
+            letter-spacing: 1px;
+        }
+
+        .stat-item p {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--brown);
+        }
+
+        @media (max-width: 600px) {
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Problem Section */
+        .problem-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .problem-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .problem-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--navy);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .problem-card {
+            background: #fafafa;
+            border: 2px solid #eee;
+            border-left: 5px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .problem-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+        .problem-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--red);
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-card p { font-size: 0.9rem; color: var(--gray); }
+
+        /* Solution Section */
+        .solution-section {
+            background: var(--navy);
+            padding: 3rem 2rem;
+            border-top: 8px solid var(--yellow);
+            border-bottom: 8px solid var(--yellow);
+        }
+
+        .solution-container { max-width: 1000px; margin: 0 auto; }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .solution-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-header p {
+            color: #a0b4c8;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .solution-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,215,0,0.15);
+            padding: 1.5rem;
+            border-left: 5px solid var(--green);
+        }
+
+        .solution-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+        .solution-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-card p { font-size: 0.9rem; color: #a0b4c8; }
+
+        /* Call Types — Medical */
+        .calltypes-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .calltypes-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calltypes-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--navy);
+        }
+
+        .calltypes-header p {
+            color: var(--gray);
+            margin-top: 0.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .calltypes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .calltype-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: #fafafa;
+            border: 2px solid #eee;
+        }
+
+        .calltype-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .calltype-icon.blue { background: var(--med-light); }
+        .calltype-icon.green { background: #e8f5e9; }
+        .calltype-icon.orange { background: #fff8e1; }
+        .calltype-icon.red { background: #ffebee; }
+        .calltype-icon.purple { background: #f3e5f5; }
+
+        .calltype-text h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .calltype-text p { font-size: 0.85rem; color: var(--gray); }
+
+        /* VozReport Feature */
+        .voz-section {
+            background: var(--yellow);
+            padding: 3rem 2rem;
+            border-top: 4px solid var(--black);
+            border-bottom: 4px solid var(--black);
+        }
+
+        .voz-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .voz-text h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .voz-text p {
+            color: var(--brown);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .voz-features { list-style: none; margin-bottom: 1.5rem; }
+
+        .voz-features li {
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            color: var(--brown);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .voz-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .voz-mini-email {
+            background: white;
+            border: 3px solid var(--black);
+            box-shadow: 8px 8px 0 var(--black);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .voz-mini-header {
+            background: var(--navy);
+            color: white;
+            padding: 14px 18px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .voz-mini-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: var(--med-light);
+            color: var(--med-blue);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px 18px 0;
+            border-left: 3px solid var(--med-blue);
+        }
+
+        .voz-mini-content { padding: 12px 18px; }
+
+        .voz-mini-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.8rem;
+        }
+
+        .voz-mini-row span:first-child { color: var(--navy); font-weight: 700; }
+        .voz-mini-row span:last-child { color: #555; }
+
+        .voz-mini-footer {
+            background: #f8f9fa;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.6rem;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .voz-container { grid-template-columns: 1fr; }
+        }
+
+        /* How It Works — Medical */
+        .how-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .how-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .how-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--navy);
+        }
+
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .how-step { text-align: center; padding: 1rem; }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--navy);
+            color: var(--yellow);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .how-step h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--navy);
+        }
+
+        .how-step p { font-size: 0.9rem; color: var(--gray); }
+
+        /* Specialties */
+        .specialties-section {
+            background: #fafafa;
+            padding: 3rem 2rem;
+            border-top: 3px solid #eee;
+            border-bottom: 3px solid #eee;
+        }
+
+        .specialties-container { max-width: 1000px; margin: 0 auto; }
+
+        .specialties-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .specialties-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--navy);
+        }
+
+        .specialties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .specialty-item {
+            padding: 1rem;
+            background: white;
+            border: 2px solid #eee;
+        }
+
+        .specialty-item .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        .specialty-item span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--navy);
+            display: block;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: var(--navy);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 8px solid var(--yellow);
+        }
+
+        .cta-section h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section .cta-sub {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: #a0b4c8;
+            font-size: 1rem;
+            max-width: 550px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-phone {
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--yellow);
+            text-decoration: none;
+            padding: 0.75rem 2rem;
+            border: 3px solid var(--yellow);
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+
+        .cta-phone:hover { background: var(--yellow); color: var(--navy); }
+
+        .cta-note {
+            color: #a0b4c8;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p { color: var(--gray); font-size: 0.8rem; }
+        footer a { color: var(--yellow); text-decoration: none; }
+        footer a:hover { color: var(--white); }
+        .footer-links { margin-top: 0.75rem; }
+        .footer-links a { color: var(--gray); font-size: 0.75rem; margin: 0 0.5rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate { animation: fadeUp 0.6s ease forwards; }
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Never Miss a Call</a>
+            <div class="nav-links">
+                <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
+                <a href="vozreport.html" data-en="VozReport™" data-es="VozReport™">VozReport™</a>
+                <a href="index.html#pricing" data-en="Pricing" data-es="Precios">Pricing</a>
+                <a href="intake.html" data-en="Get Started" data-es="Comenzar" style="color: var(--yellow);">Get Started</a>
+            </div>
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="es">ES</button>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" data-en="Home" data-es="Inicio">Home</a>
+        <a href="vozreport.html" data-en="VozReport™" data-es="VozReport™">VozReport™</a>
+        <a href="index.html#pricing" onclick="toggleMenu()" data-en="Pricing" data-es="Precios">Pricing</a>
+        <a href="intake.html" data-en="Get Started" data-es="Comenzar" style="color: var(--yellow);">Get Started</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="med-hero">
+        <div class="med-badge animate delay-1" data-en="For Medical Practices" data-es="Para Prácticas Médicas">For Medical Practices</div>
+        <h1 class="animate delay-2" data-en="Your Patients Call. <span>LaVoz</span> Answers." data-es="Tus Pacientes Llaman. <span>LaVoz</span> Contesta.">Your Patients Call. <span>LaVoz</span> Answers.</h1>
+        <p class="subtitle animate delay-3" data-en="AI-powered bilingual receptionist built for doctors, clinics, and medical offices in Puerto Rico. 24/7 coverage. Every call handled. Every detail reported." data-es="Recepcionista bilingüe con inteligencia artificial diseñada para doctores, clínicas y oficinas médicas en Puerto Rico. Cobertura 24/7. Cada llamada atendida. Cada detalle reportado.">AI-powered bilingual receptionist built for doctors, clinics, and medical offices in Puerto Rico. 24/7 coverage. Every call handled. Every detail reported.</p>
+        <div class="hero-cta animate delay-4">
+            <a href="intake.html" class="btn btn-primary" data-en="Get My AI Receptionist" data-es="Obtener Mi Recepcionista AI">Get My AI Receptionist</a>
+            <a href="tel:+17875582312" class="btn btn-secondary" data-en="Call Us Now" data-es="Llámanos Ahora">Call Us Now</a>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p data-en="Always On" data-es="Siempre Activo">Always On</p>
+            </div>
+            <div class="stat-item">
+                <h3 data-en="EN/ES" data-es="EN/ES">EN/ES</h3>
+                <p data-en="Bilingual" data-es="Bilingüe">Bilingual</p>
+            </div>
+            <div class="stat-item">
+                <h3>787</h3>
+                <p data-en="Local Number" data-es="Número Local">Local Number</p>
+            </div>
+            <div class="stat-item">
+                <h3>$97</h3>
+                <p data-en="Starting At" data-es="Desde">Starting At</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="problem-section">
+        <div class="problem-header">
+            <h2 data-en="The Calls You're Missing Right Now" data-es="Las Llamadas Que Estás Perdiendo Ahora">The Calls You're Missing Right Now</h2>
+        </div>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="icon">📵</div>
+                <h3 data-en="During Appointments" data-es="Durante Citas">During Appointments</h3>
+                <p data-en="You're with a patient. The phone rings. Nobody picks up. That caller goes to the next doctor on their list." data-es="Estás con un paciente. Suena el teléfono. Nadie contesta. Ese llamante busca al próximo doctor en su lista.">You're with a patient. The phone rings. Nobody picks up. That caller goes to the next doctor on their list.</p>
+            </div>
+            <div class="problem-card">
+                <div class="icon">🌙</div>
+                <h3 data-en="After Hours" data-es="Fuera de Horario">After Hours</h3>
+                <p data-en="Patients call at night, on weekends, on holidays. Voicemail doesn't schedule appointments. Voicemail doesn't collect insurance info." data-es="Los pacientes llaman de noche, fines de semana, feriados. El buzón de voz no agenda citas. El buzón no recopila información de seguro.">Patients call at night, on weekends, on holidays. Voicemail doesn't schedule appointments. Voicemail doesn't collect insurance info.</p>
+            </div>
+            <div class="problem-card">
+                <div class="icon">🔄</div>
+                <h3 data-en="Busy Lines" data-es="Líneas Ocupadas">Busy Lines</h3>
+                <p data-en="One receptionist. Multiple lines. Patients on hold. Some hang up. You'll never know they called." data-es="Una recepcionista. Múltiples líneas. Pacientes en espera. Algunos cuelgan. Nunca sabrás que llamaron.">One receptionist. Multiple lines. Patients on hold. Some hang up. You'll never know they called.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="solution-section">
+        <div class="solution-container">
+            <div class="solution-header">
+                <h2 data-en="LaVoz Handles Everything" data-es="LaVoz Lo Maneja Todo">LaVoz Handles Everything</h2>
+                <p data-en="Your AI receptionist answers every call with your practice name, in the patient's language, 24 hours a day." data-es="Tu recepcionista AI contesta cada llamada con el nombre de tu práctica, en el idioma del paciente, las 24 horas del día.">Your AI receptionist answers every call with your practice name, in the patient's language, 24 hours a day.</p>
+            </div>
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="icon">🏥</div>
+                    <h3 data-en="Your Practice Name" data-es="El Nombre de Tu Práctica">Your Practice Name</h3>
+                    <p data-en="LaVoz answers as your office. Patients hear your name, your address, your specialties. No third-party branding." data-es="LaVoz contesta como tu oficina. Los pacientes escuchan tu nombre, tu dirección, tus especialidades. Sin marca de terceros.">LaVoz answers as your office. Patients hear your name, your address, your specialties. No third-party branding.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="icon">🗣️</div>
+                    <h3 data-en="Natural Conversation" data-es="Conversación Natural">Natural Conversation</h3>
+                    <p data-en="No menus. No 'press 1.' LaVoz talks naturally, asks the right questions, and collects patient info conversationally." data-es="Sin menús. Sin 'presione 1.' LaVoz habla naturalmente, hace las preguntas correctas y recopila información del paciente conversacionalmente.">No menus. No "press 1." LaVoz talks naturally, asks the right questions, and collects patient info conversationally.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="icon">🌐</div>
+                    <h3 data-en="Bilingual" data-es="Bilingüe">Bilingual</h3>
+                    <p data-en="Detects the patient's language and switches instantly. English, Spanish, or both in the same call. Flawless." data-es="Detecta el idioma del paciente y cambia al instante. Inglés, español, o ambos en la misma llamada. Impecable.">Detects the patient's language and switches instantly. English, Spanish, or both in the same call. Flawless.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="icon">📋</div>
+                    <h3 data-en="Collects Everything" data-es="Recopila Todo">Collects Everything</h3>
+                    <p data-en="Name, phone, new or existing, symptoms, insurance, preferred time, referring doctor, work injury flag — all captured." data-es="Nombre, teléfono, nuevo o existente, síntomas, seguro, horario preferido, doctor que refiere, lesión laboral — todo capturado.">Name, phone, new or existing, symptoms, insurance, preferred time, referring doctor, work injury flag — all captured.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="icon">⚡</div>
+                    <h3 data-en="VozReport™ Delivery" data-es="Entrega VozReport™">VozReport™ Delivery</h3>
+                    <p data-en="After every call, a detailed bilingual report hits your inbox. Organized by call type. Ready to act on immediately." data-es="Después de cada llamada, un reporte bilingüe detallado llega a tu correo. Organizado por tipo de llamada. Listo para actuar de inmediato.">After every call, a detailed bilingual report hits your inbox. Organized by call type. Ready to act on immediately.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="icon">🔒</div>
+                    <h3 data-en="HIPAA Aware" data-es="Consciente de HIPAA">HIPAA Aware</h3>
+                    <p data-en="No patient data stored on third-party platforms. Call summaries delivered directly to your email. You control your data." data-es="Sin datos de pacientes almacenados en plataformas de terceros. Resúmenes de llamadas entregados directamente a tu correo. Tú controlas tus datos.">No patient data stored on third-party platforms. Call summaries delivered directly to your email. You control your data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call Types -->
+    <section class="calltypes-section">
+        <div class="calltypes-header">
+            <h2 data-en="Every Type of Patient Call — Handled" data-es="Cada Tipo de Llamada de Paciente — Atendida">Every Type of Patient Call — Handled</h2>
+            <p data-en="LaVoz adapts to what the patient needs. Each call type gets its own optimized VozReport™." data-es="LaVoz se adapta a lo que el paciente necesita. Cada tipo de llamada recibe su propio VozReport™ optimizado.">LaVoz adapts to what the patient needs. Each call type gets its own optimized VozReport™.</p>
+        </div>
+        <div class="calltypes-grid">
+            <div class="calltype-item">
+                <div class="calltype-icon blue">📅</div>
+                <div class="calltype-text">
+                    <h4 data-en="New Appointments" data-es="Citas Nuevas">New Appointments</h4>
+                    <p data-en="Full intake: name, symptoms, insurance, preferred time, referral source, work injury flag." data-es="Registro completo: nombre, síntomas, seguro, horario preferido, fuente de referencia, lesión laboral.">Full intake: name, symptoms, insurance, preferred time, referral source, work injury flag.</p>
+                </div>
+            </div>
+            <div class="calltype-item">
+                <div class="calltype-icon green">✅</div>
+                <div class="calltype-text">
+                    <h4 data-en="Confirmations" data-es="Confirmaciones">Confirmations</h4>
+                    <p data-en="Quick and clean. Name, date confirmed. No unnecessary questions." data-es="Rápido y limpio. Nombre, fecha confirmada. Sin preguntas innecesarias.">Quick and clean. Name, date confirmed. No unnecessary questions.</p>
+                </div>
+            </div>
+            <div class="calltype-item">
+                <div class="calltype-icon orange">🔄</div>
+                <div class="calltype-text">
+                    <h4 data-en="Reschedules" data-es="Reprogramaciones">Reschedules</h4>
+                    <p data-en="Current date, requested new date, reason for change. Office acts immediately." data-es="Fecha actual, nueva fecha solicitada, razón del cambio. La oficina actúa de inmediato.">Current date, requested new date, reason for change. Office acts immediately.</p>
+                </div>
+            </div>
+            <div class="calltype-item">
+                <div class="calltype-icon red">❌</div>
+                <div class="calltype-text">
+                    <h4 data-en="Cancellations" data-es="Cancelaciones">Cancellations</h4>
+                    <p data-en="Reason captured. LaVoz always asks if they'd like to reschedule instead." data-es="Razón capturada. LaVoz siempre pregunta si desean reprogramar en su lugar.">Reason captured. LaVoz always asks if they'd like to reschedule instead.</p>
+                </div>
+            </div>
+            <div class="calltype-item">
+                <div class="calltype-icon purple">💊</div>
+                <div class="calltype-text">
+                    <h4 data-en="Prescription Refills" data-es="Recetas Médicas">Prescription Refills</h4>
+                    <p data-en="Medication name, DOB for file lookup, pharmacy for delivery. Doctor can approve without callback." data-es="Nombre del medicamento, fecha de nacimiento, farmacia. El doctor puede aprobar sin devolver llamada.">Medication name, DOB for file lookup, pharmacy for delivery. Doctor can approve without callback.</p>
+                </div>
+            </div>
+            <div class="calltype-item">
+                <div class="calltype-icon blue">❓</div>
+                <div class="calltype-text">
+                    <h4 data-en="General Questions" data-es="Preguntas Generales">General Questions</h4>
+                    <p data-en="Hours, directions, insurance accepted — LaVoz answers. Complex questions get escalated with full notes." data-es="Horario, direcciones, seguros aceptados — LaVoz contesta. Preguntas complejas se escalan con notas completas.">Hours, directions, insurance accepted — LaVoz answers. Complex questions get escalated with full notes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VozReport Feature -->
+    <section class="voz-section">
+        <div class="voz-container">
+            <div class="voz-text">
+                <h2 data-en="VozReport™ — Your Call Intelligence" data-es="VozReport™ — Tu Inteligencia de Llamadas">VozReport™ — Your Call Intelligence</h2>
+                <p data-en="After every call, a detailed report lands in your inbox. Organized, bilingual, and ready to act on." data-es="Después de cada llamada, un reporte detallado llega a tu correo. Organizado, bilingüe y listo para actuar.">After every call, a detailed report lands in your inbox. Organized, bilingual, and ready to act on.</p>
+                <ul class="voz-features">
+                    <li data-en="Auto-detects caller language — report delivers in same language" data-es="Detecta el idioma del llamante — reporte se entrega en el mismo idioma">Auto-detects caller language — report delivers in same language</li>
+                    <li data-en="Adapts to call type — only shows relevant fields" data-es="Se adapta al tipo de llamada — solo muestra campos relevantes">Adapts to call type — only shows relevant fields</li>
+                    <li data-en="Tracks referral sources — know where patients find you" data-es="Rastrea fuentes de referencia — sabe dónde te encuentran los pacientes">Tracks referral sources — know where patients find you</li>
+                    <li data-en="Flags work injuries — protect your billing team" data-es="Señala lesiones laborales — protege tu equipo de facturación">Flags work injuries — protect your billing team</li>
+                    <li data-en="Monthly usage summary with plan tracking" data-es="Resumen mensual de uso con rastreo de plan">Monthly usage summary with plan tracking</li>
+                </ul>
+                <a href="vozreport.html" class="btn btn-primary" style="border-color: var(--black);" data-en="See VozReport™" data-es="Ver VozReport™">See VozReport™</a>
+            </div>
+            <div class="voz-mini-email">
+                <div class="voz-mini-header" data-en="VozReport — Your Office Name" data-es="VozReport — Nombre de Tu Oficina">VozReport — Your Office Name</div>
+                <div class="voz-mini-badge" data-en="NEW APPOINTMENT" data-es="CITA NUEVA">NEW APPOINTMENT</div>
+                <div class="voz-mini-content">
+                    <div class="voz-mini-row"><span data-en="Patient" data-es="Paciente">Patient</span><span>María López</span></div>
+                    <div class="voz-mini-row"><span data-en="Phone" data-es="Teléfono">Phone</span><span>(787) 555-1234</span></div>
+                    <div class="voz-mini-row"><span data-en="Reason" data-es="Razón">Reason</span><span data-en="Shoulder pain" data-es="Dolor de hombro">Shoulder pain</span></div>
+                    <div class="voz-mini-row"><span data-en="Urgency" data-es="Urgencia">Urgency</span><span style="color: #28a745; font-weight: 700;" data-en="Routine" data-es="Rutina">Routine</span></div>
+                    <div class="voz-mini-row"><span data-en="Insurance" data-es="Seguro">Insurance</span><span data-en="Caller's Plan" data-es="Plan del Llamante">Caller's Plan</span></div>
+                    <div class="voz-mini-row"><span data-en="Preferred" data-es="Preferido">Preferred</span><span data-en="Monday AM" data-es="Lunes AM">Monday AM</span></div>
+                    <div class="voz-mini-row" style="border: none;"><span data-en="Source" data-es="Fuente">Source</span><span>Google</span></div>
+                </div>
+                <div class="voz-mini-footer">VozReport™ by Never Miss a Call Center</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section">
+        <div class="how-header">
+            <h2 data-en="Live in 24 Hours — 3 Steps" data-es="En Vivo en 24 Horas — 3 Pasos">Live in 24 Hours — 3 Steps</h2>
+        </div>
+        <div class="how-steps">
+            <div class="how-step">
+                <div class="step-number">1</div>
+                <h3 data-en="Tell Us Your Practice" data-es="Dinos Tu Práctica">Tell Us Your Practice</h3>
+                <p data-en="Your name and specialty. That's it. We build your AI receptionist from public data — no forms to fill." data-es="Tu nombre y especialidad. Eso es todo. Construimos tu recepcionista AI con datos públicos — sin formularios.">Your name and specialty. That's it. We build your AI receptionist from public data — no forms to fill.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-number">2</div>
+                <h3 data-en="Call Your Number" data-es="Llama a Tu Número">Call Your Number</h3>
+                <p data-en="We hand you a 787 number. You call it. LaVoz answers your office perfectly. In English and Spanish." data-es="Te damos un número 787. Lo llamas. LaVoz contesta tu oficina perfectamente. En inglés y español.">We hand you a 787 number. You call it. LaVoz answers your office perfectly. In English and Spanish.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-number">3</div>
+                <h3 data-en="Go Live" data-es="Actívalo">Go Live</h3>
+                <p data-en="Set up call forwarding with your phone provider. Missed calls go to LaVoz. VozReport™ delivers to your inbox." data-es="Configura el desvío de llamadas con tu proveedor. Las llamadas perdidas van a LaVoz. VozReport™ entrega a tu correo.">Set up call forwarding with your phone provider. Missed calls go to LaVoz. VozReport™ delivers to your inbox.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties -->
+    <section class="specialties-section">
+        <div class="specialties-container">
+            <div class="specialties-header">
+                <h2 data-en="Built for Every Medical Specialty" data-es="Diseñado para Cada Especialidad Médica">Built for Every Medical Specialty</h2>
+            </div>
+            <div class="specialties-grid">
+                <div class="specialty-item">
+                    <div class="icon">🦴</div>
+                    <span data-en="Orthopedics" data-es="Ortopedia">Orthopedics</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">🦷</div>
+                    <span data-en="Dental" data-es="Dental">Dental</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">👁️</div>
+                    <span data-en="Ophthalmology" data-es="Oftalmología">Ophthalmology</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">❤️</div>
+                    <span data-en="Cardiology" data-es="Cardiología">Cardiology</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">🧠</div>
+                    <span data-en="Neurology" data-es="Neurología">Neurology</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">👶</div>
+                    <span data-en="Pediatrics" data-es="Pediatría">Pediatrics</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">🩺</div>
+                    <span data-en="Primary Care" data-es="Medicina Primaria">Primary Care</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">🧘</div>
+                    <span data-en="Mental Health" data-es="Salud Mental">Mental Health</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">💪</div>
+                    <span data-en="Physical Therapy" data-es="Terapia Física">Physical Therapy</span>
+                </div>
+                <div class="specialty-item">
+                    <div class="icon">🐾</div>
+                    <span data-en="Veterinary" data-es="Veterinaria">Veterinary</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 data-en="Never Miss a Patient Again" data-es="Nunca Pierdas un Paciente Otra Vez">Never Miss a Patient Again</h2>
+        <p class="cta-sub" data-en="LaVoz Answers. VozReport™ Delivers." data-es="LaVoz Contesta. VozReport™ Entrega.">LaVoz Answers. VozReport™ Delivers.</p>
+        <p data-en="Start with a free demo. We build your AI receptionist in 24 hours. No contracts. Cancel anytime." data-es="Comienza con un demo gratis. Construimos tu recepcionista AI en 24 horas. Sin contratos. Cancela cuando quieras.">Start with a free demo. We build your AI receptionist in 24 hours. No contracts. Cancel anytime.</p>
+        <a href="intake.html" class="btn btn-primary" data-en="Get My AI Receptionist" data-es="Obtener Mi Recepcionista AI">Get My AI Receptionist</a>
+        <br>
+        <a href="tel:+17875582312" class="cta-phone">(787) 558-2312</a>
+        <p class="cta-note" data-en="Call us or fill out the form — your choice" data-es="Llámanos o llena el formulario — tú decides">Call us or fill out the form — your choice</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Never Miss a Call Center™ — <a href="tel:+17875582312">(787) 558-2312</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">GoStar Digital LLC — San Juan, Puerto Rico</p>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('active');
+        }
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = localStorage.getItem('nevermissacall-lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('nevermissacall-lang', lang);
+            langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+            document.querySelectorAll('[data-en][data-es]').forEach(el => {
+                const attr = el.getAttribute(`data-${lang}`);
+                if (attr) {
+                    if (attr.indexOf('<') > -1) {
+                        el.innerHTML = attr;
+                    } else {
+                        el.textContent = attr;
+                    }
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        langBtns.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+        setLanguage(currentLang);
+    </script>
+</body>
+</html>
