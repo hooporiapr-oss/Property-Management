@@ -526,10 +526,6 @@
             color: #999;
         }
 
-        @media (max-width: 768px) {
-            .voz-container { grid-template-columns: 1fr; }
-        }
-
         /* How It Works — Medical */
         .how-section {
             max-width: 1000px;
@@ -703,6 +699,87 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hamburger { display: flex; }
+
+            /* Hero mobile */
+            .med-hero { padding: 2.5rem 1.25rem 3rem; }
+            .med-hero h1 { font-size: 1.8rem; letter-spacing: 1px; }
+            .med-hero .subtitle { font-size: 0.95rem; margin-bottom: 2rem; }
+
+            /* Buttons mobile */
+            .btn {
+                font-size: 0.95rem;
+                letter-spacing: 1px;
+                padding: 0.85rem 1.5rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0 1rem;
+            }
+
+            /* Stats mobile */
+            .stat-item h3 { font-size: 2rem; }
+            .stat-item p { font-size: 0.7rem; letter-spacing: 1px; }
+
+            /* Problem cards */
+            .problem-grid { grid-template-columns: 1fr; }
+
+            /* Solution cards */
+            .solution-grid { grid-template-columns: 1fr; }
+
+            /* Call types */
+            .calltypes-grid { grid-template-columns: 1fr; }
+
+            /* VozReport section */
+            .voz-container { grid-template-columns: 1fr; }
+            .voz-text h2 { font-size: 1.4rem; }
+
+            /* How it works */
+            .how-steps { grid-template-columns: 1fr; }
+
+            /* Specialties */
+            .specialties-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; }
+            .specialty-item { padding: 0.75rem 0.5rem; }
+            .specialty-item .icon { font-size: 1.5rem; }
+            .specialty-item span { font-size: 0.7rem; }
+
+            /* CTA mobile */
+            .cta-section { padding: 3rem 1.25rem; }
+            .cta-section h2 { font-size: 1.5rem; letter-spacing: 2px; }
+            .cta-section .cta-sub { font-size: 1rem; letter-spacing: 1px; }
+            .cta-section p { font-size: 0.9rem; }
+
+            .cta-phone {
+                font-size: 1.4rem;
+                padding: 0.65rem 1.5rem;
+                display: block;
+                margin: 1rem auto 0;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .cta-note { font-size: 0.7rem; letter-spacing: 1px; }
+
+            /* Section headers */
+            .problem-header h2,
+            .calltypes-header h2,
+            .how-header h2,
+            .specialties-header h2 { font-size: 1.2rem; letter-spacing: 2px; }
+
+            .solution-header h2 { font-size: 1.3rem; letter-spacing: 2px; }
+            .solution-header p { font-size: 0.9rem; }
+
+            .calltypes-header p { font-size: 0.85rem; }
+        }
+
+        @media (max-width: 380px) {
+            .med-hero h1 { font-size: 1.5rem; }
+            .btn { font-size: 0.85rem; padding: 0.75rem 1rem; }
+            .stat-item h3 { font-size: 1.6rem; }
+            .cta-phone { font-size: 1.2rem; }
         }
 
         /* Animations */
