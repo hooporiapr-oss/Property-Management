@@ -58,6 +58,27 @@
             text-decoration: none;
             font-weight: 600;
         }
+        .phone-bar {
+            background: var(--black);
+            text-align: center;
+            padding: 0.5rem 0 1rem;
+            border-bottom: 1px solid #222;
+        }
+        .phone-bar a {
+            color: var(--gold);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        /* COVER LOGO */
+        .cover-logo {
+            max-width: 400px;
+            width: 80%;
+            margin-bottom: 2.5rem;
+        }
 
         /* CONTENT CONTAINER */
         .content {
@@ -257,6 +278,27 @@
             .three-col { grid-template-columns: 1fr; }
             .stat-block { padding: 1.5rem; }
             .report-card { font-size: 0.65rem; padding: 1.5rem; }
+            .cover-logo { max-width: 280px; }
+        }
+
+        .phone-bar {
+            background: var(--black);
+            text-align: center;
+            padding: 0.5rem;
+            border-top: 1px solid #222;
+        }
+        .phone-bar a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .cover-logo {
+            max-width: 400px;
+            width: 80%;
+            margin-bottom: 2.5rem;
         }
     </style>
 </head>
@@ -270,12 +312,15 @@
             <button class="lang-btn active" id="btn-en">EN</button>
             <button class="lang-btn" id="btn-es">ES</button>
         </div>
-        <a href="tel:+17875582312" class="nav-contact">(787) 558-2312</a>
     </div>
 </nav>
+<div class="phone-bar">
+    <a href="tel:+17875582312">(787) 558-2312</a>
+</div>
 
 <!-- COVER -->
 <div class="cover">
+    <img src="nmacc.png" alt="Never Miss a Call Center" class="cover-logo">
     <h1 data-en="The Cost of a <span class='gold'>Missed Call</span> in Your Practice" data-es="El Costo de una <span class='gold'>Llamada Perdida</span> en Tu Práctica">The Cost of a <span class="gold">Missed Call</span> in Your Practice</h1>
     <div class="cover-line"></div>
     <p class="cover-sub" data-en="And what happens when you stop missing them." data-es="Y lo que pasa cuando dejas de perderlas.">And what happens when you stop missing them.</p>
