@@ -267,8 +267,8 @@
     <a href="#" class="nav-brand">Never Miss a Call</a>
     <div class="nav-right">
         <div class="lang-toggle">
-            <button class="lang-btn active" onclick="setLang('en')">EN</button>
-            <button class="lang-btn" onclick="setLang('es')">ES</button>
+            <button class="lang-btn active" id="btn-en">EN</button>
+            <button class="lang-btn" id="btn-es">ES</button>
         </div>
         <a href="tel:+17875582312" class="nav-contact">(787) 558-2312</a>
     </div>
@@ -364,7 +364,7 @@
 <span class="rc-white">Phone:           939-876-5432</span>
 <span class="rc-white">Patient Status:  New</span>
 <span class="rc-white">Call Type:       New Appointment</span>
-<span class="rc-white">Insurance:       Triple S</span>
+<span class="rc-white">Insurance:       Insurance Provider</span>
 <span class="rc-white">Reason:          Knee pain, difficulty walking</span>
 
 <span class="rc-white">Preferred Time:  Wednesday, morning</span>
@@ -404,7 +404,7 @@
     <h2 data-en="Stop Losing <span class='gold'>Patients</span> to Voicemail" data-es="Deja de Perder <span class='gold'>Pacientes</span> al Buzón de Voz">Stop Losing <span class="gold">Patients</span> to Voicemail</h2>
     <p class="cta-sub" data-en="Every missed call is a patient who needed you. Let's fix that." data-es="Cada llamada perdida es un paciente que te necesitaba. Vamos a arreglar eso.">Every missed call is a patient who needed you. Let's fix that.</p>
     <div class="cta-buttons">
-        <a href="mailto:gostardigital@gmail.com" class="btn-gold" data-en="Get Started" data-es="Comenzar">Get Started</a>
+        <a href="/cdn-cgi/l/email-protection#791e160a0d180b1d101e100d1815391e14181015571a1614" class="btn-gold" data-en="Get Started" data-es="Comenzar">Get Started</a>
         <a href="tel:+17875582312" class="btn-wire" data-en="Call (787) 558-2312" data-es="Llama (787) 558-2312">Call (787) 558-2312</a>
     </div>
 </div>
@@ -416,11 +416,15 @@
 </footer>
 
 <script>
+document.getElementById('btn-en').addEventListener('click', function() { setLang('en'); });
+document.getElementById('btn-es').addEventListener('click', function() { setLang('es'); });
+
 function setLang(lang) {
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-        el.innerHTML = el.getAttribute('data-' + lang);
+    document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById('btn-' + lang).classList.add('active');
+    document.querySelectorAll('[data-en]').forEach(function(el) {
+        var text = el.getAttribute('data-' + lang);
+        if (text) el.innerHTML = text;
     });
 }
 </script>
